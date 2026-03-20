@@ -50,18 +50,18 @@ if "messages" not in st.session_state:
     상대가 힌트를 요청하면 그에 따라 가벼운 힌트를 주세요.
     '''}]
 
-# 4. 음성 인식 함수
+# 2. 음성 인식 함수 정의
 def start_listening():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
-        st.toast("지금 말씀하세요...")
+        st.toast("지금 말씀하세요...")  # 음성 인식 준비되면 알림
         audio = recognizer.listen(source, timeout=5)
         text = recognizer.recognize_google(audio, language='ko-KR')
         return text
 
-# 5. 음성 인식 버튼
+# 3. 음성 인식 버튼 생성
 if st.button("🎤 음성 인식 시작"):
-    user_text = start_listening()
+    user_text = start_listening()   # 위 2. 음성 인식 함수로 인식된 음성이 텍스트로 저장되는 변수
     
     if user_text:
         # '종료' 체크
@@ -70,7 +70,7 @@ if st.button("🎤 음성 인식 시작"):
             st.session_state.messages.append({"role": "assistant", "content": "퀴즈를 종료합니다. 수고하셨어요!"})
 
         else:
-            st.session_state.messages.append({"role": "user", "content": user_text})
+            st.session_state.messages.append({"role": "user", "content": user_text})    # 사용자의 음성 인식 텍스트 추가
 
             response = client.chat.completions.create(
                 model = 'gpt-4.1-mini',
@@ -80,17 +80,17 @@ if st.button("🎤 음성 인식 시작"):
                 top_p=1
             )
 
-            st.session_state.messages.append({"role": "assistant", "content": response.choices[0].message.content})
+            st.session_state.messages.append({"role": "assistant", "content": response.choices[0].message.content}) # 챗봇의 응답 추가
 
-            with client.audio.speech.with_streaming_response.create(
+            with client.audio.speech.with_streaming_response.create(    # 챗봇의 응답을 음성으로 변환 후 표현
                 model='gpt-4o-mini-tts',
                 voice='nova',
                 input=response.choices[0].message.content
             ) as response:
                 st.audio(response.read(), format="audio/mpeg", autoplay=True)
 
-# 3. 대화창 렌더링 (저장된 메시지를 모두 화면에 뿌려줌)
-for msg in st.session_state.messages[1:]:
+# 4. 대화창 최신화 (st.session_state.messages 내용 출력)
+for msg in st.session_state.messages[1:]:   # 첫 요소는 'system prompt'이므로 패스
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
         
