@@ -48,4 +48,8 @@
 
 <br/><br/>
 
-## 한계점
+## 한계 및 개선점
+> AI 모델의 환각(Hallucination) 증상 발생
+- System prompt에 추가 지시
+- temperature 값을 0.2로 낮춤
+> 음성 인식 준비 및 실제 인식 시간 다소 소요
