@@ -12,8 +12,15 @@
 > 단순 텍스트 기반 퀴즈를 넘어 말하기(STT)와 듣기(TTS), 대화하기(with ChatBOT)가 결합된 다양한 경험을 제공합니다.<br/><br/><br/>
 
 ## 적용 기술
-> 
+|   기술   | 내용            | 모델 |
+|:--------:|:-----------------:|:-----------------:|
+| STT | 사용자의 음성을 텍스트로 변환 |  |
+| TTS | AI 모델의 답변 텍스트를 음성으로 변환 |  |
+| Prompt Engineering | 낭독 퀴즈를 원활히 진행할 수 있도록 System Prompt 입력 |  |
+| 웹 인터페이스 | 레이아웃 구현 | Streamlit |
+
 ---
+
 ## 진행 결과
 <img width="450" height="auto" alt="01" src="https://github.com/user-attachments/assets/d2da10a0-e661-4d7c-87be-d4dbc658693d" />  
 <img width="450" height="auto" alt="02" src="https://github.com/user-attachments/assets/8c3425b9-798b-437f-8877-1c9f2ebfd834" /><br/><br/>
